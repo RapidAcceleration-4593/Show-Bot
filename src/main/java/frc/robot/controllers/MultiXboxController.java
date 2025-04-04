@@ -11,12 +11,12 @@ public class MultiXboxController extends CommandXboxController implements IMulti
 
     @Override
     public Translation2d getLeftRightSpeeds() {
-        return new Translation2d(-this.getLeftY(), -this.getRightY());
+        return new Translation2d(-this.getLeftY() * .35, -this.getRightY() * .35);
     }
 
     @Override
     public Translation2d getTransRot() {
-        return new Translation2d(-this.getLeftY(), -this.getRightX());
+        return new Translation2d(-this.getLeftY() * .35, -this.getRightX() * .35);
     }
     
 }

@@ -49,8 +49,8 @@ public class DrivebaseSubsystem extends SubsystemBase {
         rearLeftMotor.configure(brakeModeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         rearRightMotor.configure(brakeModeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-        rearLeftMotor.configure(followLeftMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        rearRightMotor.configure(followRightMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        //rearLeftMotor.configure(followLeftMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        //rearRightMotor.configure(followRightMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
 
