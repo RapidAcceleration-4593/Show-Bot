@@ -5,22 +5,17 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ShooterCommand;
-import frc.robot.commands.MultiModeDriveCommand;
-import frc.robot.subsystems.DrivebaseSubsystem;
-import frc.robot.subsystems.PuckShooterSubsystem;
+import frc.robot.subsystems.DifferentialDriveSubsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
-
-import frc.robot.controllers.*;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
   // Declare and Assign Subsystems
-  private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
-  private final PuckShooterSubsystem shooterSubsystem = new PuckShooterSubsystem();
+  private final DifferentialDriveSubsystem drivebase = new DifferentialDriveSubsystem();
 
   // Declare and Assign Controller(s)
-  private final MultiXboxController driverController =
-    new MultiXboxController(OperatorConstants.driverControllerPort);
+  private final CommandXboxController driverController = new CommandXboxController(OperatorConstants.driverControllerPort);
 
   /**
    * Robot Container Constructor
@@ -28,15 +23,14 @@ public class RobotContainer {
    */
   public RobotContainer() {
     configureBindings();
-    drivebase.setDefaultCommand(new MultiModeDriveCommand(drivebase, driverController));
   }
 
   /**
    * Configure Xbox Controller Bindings
    */
   private void configureBindings() {
-    driverController.rightTrigger().whileTrue(new ShooterCommand(shooterSubsystem));
-    driverController.x().onTrue(drivebase.getToNextDriveModeCommand());
+    driverController.x().onTrue(drivebase.goToPitchCommand(0));
+    driverController.y().onTrue(drivebase.goToPitchCommand(1));    
   }
 
   /**
@@ -44,6 +38,7 @@ public class RobotContainer {
    * @return null, absence of autons
    */
   public Command getAutonomousCommand() {
+    DifferentialDrive foo;
     return null;
   }
 }

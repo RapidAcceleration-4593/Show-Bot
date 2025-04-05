@@ -21,22 +21,7 @@ public final class Constants {
   }
 
   public static final class DrivebaseConstants {
-    public static final SparkMax frontLeftMotor = new SparkMax(1, MotorType.kBrushless); // Originally 3
-    public static final SparkMax frontRightMotor = new SparkMax(2, MotorType.kBrushless); // Originally 4
-    public static final SparkMax rearLeftMotor = new SparkMax(5, MotorType.kBrushless);
-    public static final SparkMax rearRightMotor = new SparkMax(7, MotorType.kBrushless);
-    
-    public static final DrivebaseSubsystem.DriveMode defaultDriveMode = DrivebaseSubsystem.DriveMode.TANK;
-  }
-
-  public static final class PuckShooterConstants {
-    public static final SparkMax leftShooter = new SparkMax(100, MotorType.kBrushless); // originally 1
-    public static final SparkMax rightShooter = new SparkMax(6, MotorType.kBrushless);
-
-    public static final SparkMax spinner = new SparkMax(110, MotorType.kBrushed); // originally 2
-    public static final double spinnerSpeed = 0.25;
-
-    public static final SparkRelativeEncoder leftShooterEncoder = (SparkRelativeEncoder) leftShooter.getEncoder();
-    public static final SparkRelativeEncoder rightShooterEncoder = (SparkRelativeEncoder) rightShooter.getEncoder();
+    public static final SparkMax frontLeftMotor = new SparkMax(1, MotorType.kBrushless);
+    public static final SparkMax frontRightMotor = new SparkMax(2, MotorType.kBrushless);
   }
 }
