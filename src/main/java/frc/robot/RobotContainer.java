@@ -30,7 +30,10 @@ public class RobotContainer {
    */
   private void configureBindings() {
     driverController.x().onTrue(drivebase.goToPitchCommand(0));
-    driverController.y().onTrue(drivebase.goToPitchCommand(1));    
+    driverController.y().onTrue(drivebase.goToPitchCommand(1));
+
+    driverController.b().onTrue(drivebase.goToYawCommand(0));
+    driverController.a().onTrue(drivebase.goToYawCommand(1));
   }
 
   /**
@@ -38,7 +41,6 @@ public class RobotContainer {
    * @return null, absence of autons
    */
   public Command getAutonomousCommand() {
-    DifferentialDrive foo;
     return null;
   }
 }
