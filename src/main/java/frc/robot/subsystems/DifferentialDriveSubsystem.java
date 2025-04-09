@@ -20,6 +20,8 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
     private static final double MAXIUM_OUTPUT = 0.1;
 
     private PIDController yawController = new PIDController(0.3, 0, 0);
+    
+    private double pitchOffset = 0;
 
     public DifferentialDriveSubsystem() {
         SparkMaxConfig motorConfig = new SparkMaxConfig();
@@ -33,7 +35,7 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
     }
 
     public void runPitchPID(double pitch) {
-        var initial = pitchController.calculate(leftMotor.getEncoder().getPosition());
+        var initial = pitchController.calculate(getCurrentPitch());
         var limited = Math.max(initial, -MAXIUM_OUTPUT);
         limited = Math.min(limited, MAXIUM_OUTPUT);
 
@@ -70,5 +72,9 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
 
     private double getCurrentYaw() {
         return leftMotor.getEncoder().getPosition() + rightMotor.getEncoder().getPosition();
+    }
+
+    private double getCurrentPitch() {
+        return (leftMotor.getEncoder().getPosition() - (rightMotor.getEncoder().getPosition())) / 2;
     }
 }
