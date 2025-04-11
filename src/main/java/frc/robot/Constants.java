@@ -25,8 +25,6 @@ public final class Constants {
     public static final SparkMax frontRightMotor = new SparkMax(4, MotorType.kBrushless);
     public static final SparkMax rearLeftMotor = new SparkMax(5, MotorType.kBrushless);
     public static final SparkMax rearRightMotor = new SparkMax(7, MotorType.kBrushless);
-    
-    public static final DrivebaseSubsystem.DriveMode defaultDriveMode = DrivebaseSubsystem.DriveMode.TANK;
   }
 
   public static final class PuckShooterConstants {
