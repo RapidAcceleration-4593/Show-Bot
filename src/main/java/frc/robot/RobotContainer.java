@@ -29,11 +29,11 @@ public class RobotContainer {
    * Configure Xbox Controller Bindings
    */
   private void configureBindings() {
-    driverController.x().onTrue(drivebase.goToPitchCommand(0));
-    driverController.y().onTrue(drivebase.goToPitchCommand(1));
+    driverController.x().onTrue(drivebase.goToPositionCommand(0, 0));
+    driverController.y().onTrue(drivebase.goToPositionCommand(0, 1));
 
-    driverController.b().onTrue(drivebase.goToYawCommand(0));
-    driverController.a().onTrue(drivebase.goToYawCommand(1));
+    driverController.b().onTrue(drivebase.goToPositionCommand(1, 0));
+    driverController.a().onTrue(drivebase.runSingleMotorCommand(driverController::getLeftY));
   }
 
   /**
