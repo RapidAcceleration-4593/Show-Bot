@@ -2,9 +2,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.PuckShooterConstants;
 import frc.robot.subsystems.PuckShooterSubsystem;
 
 public class ShooterCommand extends Command {
+
     private final PuckShooterSubsystem shooterSubsystem;
 
     /**
@@ -12,16 +14,14 @@ public class ShooterCommand extends Command {
      * @param subsystem Puck Shooter Subsystem
      */
     public ShooterCommand(PuckShooterSubsystem subsystem) {
-        shooterSubsystem = subsystem;
+        this.shooterSubsystem = subsystem;
         addRequirements(subsystem);
     }
 
-    /**
-     * Start shooter motors when binding is pressed
-     */
+    /** Start shooter motors when binding is pressed. */
     @Override
     public void initialize() {
-        shooterSubsystem.runShooter(1.0);
+        shooterSubsystem.runShooter(PuckShooterConstants.shooterSpeed);
     }
 
     /**
@@ -37,18 +37,14 @@ public class ShooterCommand extends Command {
         }
     }
 
-    /**
-     * Stop all shooter motors when binding is released
-     */
+    /** Stop all shooter motors when binding is released. */
     @Override
     public void end(boolean interrupted) {
         shooterSubsystem.stopShooter();
         shooterSubsystem.stopSpinnerWheel();
     }
 
-    /**
-     * Cancel on release
-     */
+    /** Cancel on release. */
     @Override
     public boolean isFinished() {
         return false;

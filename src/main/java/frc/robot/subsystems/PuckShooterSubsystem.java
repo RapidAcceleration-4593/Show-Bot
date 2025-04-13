@@ -49,7 +49,7 @@ public class PuckShooterSubsystem extends SubsystemBase {
      * @return Sets shooter motor speeds to zero
      */
     public void stopShooter() {
-        rightShooter.set(0);
+        rightShooter.stopMotor();
     }
 
     /**
@@ -67,7 +67,7 @@ public class PuckShooterSubsystem extends SubsystemBase {
      */
     //TODO Implement with new motor
     public void stopSpinnerWheel() {
-        spinner.set(0);
+        spinner.stopMotor();
     }
 
     /**
@@ -75,9 +75,8 @@ public class PuckShooterSubsystem extends SubsystemBase {
      * @return boolean of average encoder velocity greater than 5500 RPMs
      */
     //TODO optimize so it shoots at maximum speed
-    public boolean IsAtShootingSpeed()
-    {   
+    public boolean IsAtShootingSpeed() {   
         // Shooter encoders use different measurement systems currently
-        return Math.abs(leftShooterEncoder.getVelocity() + rightShooterEncoder.getVelocity()*1000) /2 > 4000;
+        return Math.abs(leftShooterEncoder.getVelocity() + rightShooterEncoder.getVelocity() * 1000) / 2 > 4000;
     }
 }

@@ -12,13 +12,13 @@ import frc.robot.Constants.DrivebaseConstants;
 
 public class DrivebaseSubsystem extends SubsystemBase {
 
-    // Declare and Assign IDs to CANSparkMax
+    // Declare and Assign IDs to CANSparkMax.
     private final SparkMax frontLeftMotor = DrivebaseConstants.frontLeftMotor;
     private final SparkMax frontRightMotor = DrivebaseConstants.frontRightMotor;
     private final SparkMax rearLeftMotor = DrivebaseConstants.rearLeftMotor;
     private final SparkMax rearRightMotor = DrivebaseConstants.rearRightMotor;
 
-    // Construct a Differential Drive object
+    // Construct a Differential Drive object.
     private final DifferentialDrive drive = new DifferentialDrive(frontLeftMotor, frontRightMotor);
 
     private final SparkMaxConfig brakeModeConfig = new SparkMaxConfig();
@@ -26,7 +26,7 @@ public class DrivebaseSubsystem extends SubsystemBase {
     private final SparkMaxConfig followRightMotorConfig = new SparkMaxConfig();
 
     /**
-     * Drivebase Subsystem Constructor
+     * Drivebase Subsystem Constructor.
      * @return Establishes motor controller groups between left and right side.
      */
     public DrivebaseSubsystem() {
@@ -44,9 +44,9 @@ public class DrivebaseSubsystem extends SubsystemBase {
     }
 
     /**
-     * Arcade Drive Command to control binding inputs
-     * @param translation Forward/Backward Movement with Left Joystick
-     * @param rotation Rotational Movement with Right Joystick
+     * Arcade Drive Command to control binding inputs.
+     * @param translation Forward/Backward Movement with Left Joystick.
+     * @param rotation Rotational Movement with Right Joystick.
      */
     public void arcadeDrive(double translation, double rotation) {
         drive.arcadeDrive(rotation, translation);
@@ -60,9 +60,7 @@ public class DrivebaseSubsystem extends SubsystemBase {
         drive.curvatureDrive(translation, rotation, false);
     }
 
-    /**
-     * Stop all drivebase motors
-     */
+    /** Stop all drivebase motors. */
     public void stop() {
         drive.stopMotor();
     }
