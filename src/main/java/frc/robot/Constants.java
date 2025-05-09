@@ -6,9 +6,6 @@ package frc.robot;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkRelativeEncoder;
-
-import frc.robot.subsystems.DrivebaseSubsystem;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -20,8 +17,9 @@ public final class Constants {
     public static final int driverControllerPort = 0;
   }
 
-  public static final class DrivebaseConstants {
-    public static final SparkMax frontLeftMotor = new SparkMax(1, MotorType.kBrushless);
-    public static final SparkMax frontRightMotor = new SparkMax(2, MotorType.kBrushless);
+  public static final class DifferentialWristConstants {
+    public static final SparkMax leftMotor = new SparkMax(1, MotorType.kBrushless);
+    public static final SparkMax rightMotor = new SparkMax(4, MotorType.kBrushless);
+    public static final SparkMax intakeMotor = new SparkMax(2, MotorType.kBrushless);
   }
 }
