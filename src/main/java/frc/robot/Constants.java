@@ -23,5 +23,6 @@ public final class Constants {
   public static final class DrivebaseConstants {
     public static final SparkMax frontLeftMotor = new SparkMax(1, MotorType.kBrushless);
     public static final SparkMax frontRightMotor = new SparkMax(2, MotorType.kBrushless);
+    public static final SparkMax intakeMotor = new SparkMax(4, MotorType.kBrushless);
   }
 }

@@ -5,17 +5,26 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArcadeDriveCommand;
+import frc.robot.commands.RunIntakeCommand;
 import frc.robot.subsystems.DifferentialDriveSubsystem;
+import frc.robot.subsystems.DrivebaseSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 
 public class RobotContainer {
   // Declare and Assign Subsystems
-  private final DifferentialDriveSubsystem drivebase = new DifferentialDriveSubsystem();
+ //.. private final DifferentialDriveSubsystem drivebase = new DifferentialDriveSubsystem();
 
   // Declare and Assign Controller(s)
   private final CommandXboxController driverController = new CommandXboxController(OperatorConstants.driverControllerPort);
+
+  private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   /**
    * Robot Container Constructor
@@ -23,18 +32,21 @@ public class RobotContainer {
    */
   public RobotContainer() {
     configureBindings();
+    drivebase.setDefaultCommand(new ArcadeDriveCommand(drivebase, () -> driverController.getLeftY() / 3, () -> driverController.getRightX() / 3));
   }
+
+
 
   /**
    * Configure Xbox Controller Bindings
    */
   private void configureBindings() {
-    driverController.x().onTrue(drivebase.goToPitchCommand(0));
-    driverController.y().onTrue(drivebase.goToPitchCommand(1));
-
-    driverController.b().onTrue(drivebase.goToYawCommand(0));
-    driverController.a().onTrue(drivebase.goToYawCommand(1));
+      driverController.rightTrigger().whileTrue(new RunIntakeCommand(intakeSubsystem, false));
+      driverController.leftTrigger().whileTrue(new RunIntakeCommand(intakeSubsystem, true));
+      
+      
   }
+
 
   /**
    * Retrieve Autonomous Command
