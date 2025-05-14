@@ -6,6 +6,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DifferentialWristConstants;
 
@@ -15,6 +16,9 @@ public class DifferentialWristSubsystem extends SubsystemBase {
     private final SparkMax rightMotor = DifferentialWristConstants.rightMotor;
 
     private final SparkMax intakeMotor = DifferentialWristConstants.intakeMotor;
+
+    public final Encoder leftEncoder = DifferentialWristConstants.leftEncoder;
+    public final Encoder rightEncoder = DifferentialWristConstants.rightEncoder;
 
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
 
@@ -47,5 +51,19 @@ public class DifferentialWristSubsystem extends SubsystemBase {
 
     public void stopIntake() {
         intakeMotor.stopMotor();
+    }
+
+    public double getLeftEncoder() {
+        return leftEncoder.get();
+    }
+
+    public double getRightEncoder() {
+        return rightEncoder.get();
+    }
+
+    @Override
+    public void periodic() {
+        System.out.println("Left Encoder: " + getLeftEncoder());
+        System.out.println("Right Encoder: " + getRightEncoder());
     }
 }
