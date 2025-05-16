@@ -1,14 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DifferentialWristSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 public class RotateWristTogetherCommand extends Command {
     
-    public final DifferentialWristSubsystem wristSubsystem;
+    public final WristSubsystem wristSubsystem;
     private boolean inverted;
 
-    public RotateWristTogetherCommand(DifferentialWristSubsystem subsystem, boolean inverted) {
+    public RotateWristTogetherCommand(WristSubsystem subsystem, boolean inverted) {
         this.wristSubsystem = subsystem;
         this.inverted = inverted;
         addRequirements(subsystem);
@@ -22,5 +22,10 @@ public class RotateWristTogetherCommand extends Command {
     @Override
     public void end(boolean interrupted) {
         wristSubsystem.stopWrist();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
     }
 }

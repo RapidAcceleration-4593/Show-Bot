@@ -23,9 +23,12 @@ public final class Constants {
   public static final class DifferentialWristConstants {
     public static final SparkMax leftMotor = new SparkMax(1, MotorType.kBrushless);
     public static final SparkMax rightMotor = new SparkMax(4, MotorType.kBrushless);
-    public static final SparkMax intakeMotor = new SparkMax(2, MotorType.kBrushless);
 
     public static final Encoder leftEncoder = new Encoder(2, 3);
     public static final Encoder rightEncoder = new Encoder(0, 1);
+  }
+
+  public static final class IntakeConstants {
+    public static final SparkMax intakeMotor = new SparkMax(2, MotorType.kBrushless);
   }
 }
