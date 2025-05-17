@@ -5,6 +5,10 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.RobotStates.WristPitchStates;
+import frc.robot.Constants.RobotStates.WristYawStates;
+import frc.robot.commands.ControlPitchCommand;
+import frc.robot.commands.ControlYawCommand;
 import frc.robot.commands.RotateWristCommand;
 import frc.robot.commands.RotateWristTogetherCommand;
 import frc.robot.commands.RunIntakeCommand;
@@ -42,13 +46,13 @@ public class RobotContainer {
     driverController.y().whileTrue(new RotateWristTogetherCommand(wristSubsystem, false));
     driverController.a().whileTrue(new RotateWristTogetherCommand(wristSubsystem, true));
 
-    driverController.povUp().onTrue(wristSubsystem.goToPitchCommand(500));
-    driverController.povDown().onTrue(wristSubsystem.goToPitchCommand(1600));
+    driverController.povUp().onTrue(new ControlPitchCommand(wristSubsystem, WristPitchStates.UP));
+    driverController.povDown().onTrue(new ControlPitchCommand(wristSubsystem, WristPitchStates.OUT));
 
-    driverController.leftBumper().onTrue(wristSubsystem.goToYawCommand(2400));
-    driverController.rightBumper().onTrue(wristSubsystem.goToYawCommand(-2400));
+    driverController.leftBumper().onTrue(new ControlYawCommand(wristSubsystem, WristYawStates.LEFT));
+    driverController.rightBumper().onTrue(new ControlYawCommand(wristSubsystem, WristYawStates.RIGHT));
 
-    driverController.povLeft().onTrue(wristSubsystem.goToYawCommand(0));
+    driverController.povLeft().onTrue(new ControlYawCommand(wristSubsystem, WristYawStates.CENTER));
   }
 
   /**

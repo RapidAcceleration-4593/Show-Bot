@@ -9,9 +9,10 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DifferentialWristConstants;
+import frc.robot.Constants.RobotStates.WristPitchStates;
+import frc.robot.Constants.RobotStates.WristYawStates;
 
 public class WristSubsystem extends SubsystemBase {
 
@@ -24,9 +25,9 @@ public class WristSubsystem extends SubsystemBase {
     private final PIDController pitchController = new PIDController(0.05, 0, 0);
     private final PIDController yawController = new PIDController(0.05, 0, 0);
 
-    // private final int[] PITCH_SETPOINTS = {500, 1600}; // Up, Out
-    // private final int[] YAW_SETPOINTS = {2400, 0, -2400}; // Left, Middle, Right
-    private final double MAXIUM_OUTPUT = 0.15;
+    private final int[] PITCH_SETPOINTS = {500, 1600};
+    private final int[] YAW_SETPOINTS = {2400, 0, -2400};
+    private final double MAXIUM_OUTPUT = 0.25;
 
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
 
@@ -35,9 +36,37 @@ public class WristSubsystem extends SubsystemBase {
         
         leftMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         rightMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    
+        pitchController.setTolerance(20);
+        yawController.setTolerance(20);
     }
 
-    public void runPitchPID(double pitch) {
+    public void setPitchState(WristPitchStates state) {
+        pitchController.setSetpoint(getPitchSetpoint(state));
+    }
+
+    public void setYawState(WristYawStates state) {
+        yawController.setSetpoint(getYawSetpoint(state));
+    }
+
+    public double getPitchSetpoint(WristPitchStates state) {
+        return switch (state) {
+            case UP -> PITCH_SETPOINTS[0];
+            case OUT -> PITCH_SETPOINTS[1];
+            default -> throw new IllegalStateException("Passed in an WristPitchState that does not have an associated setpoint!");
+        };
+    }
+
+    public double getYawSetpoint(WristYawStates state) {
+        return switch (state) {
+            case LEFT -> YAW_SETPOINTS[0];
+            case CENTER -> YAW_SETPOINTS[1];
+            case RIGHT -> YAW_SETPOINTS[2];
+            default -> throw new IllegalStateException("Passed in an WristYawState that does not have an associated setpoint!");
+        };
+    }
+
+    public void controlPitchPID() {
         double initial = pitchController.calculate(getCurrentPitch());
         double limited = Math.max(initial, -MAXIUM_OUTPUT);
         limited = Math.min(limited, MAXIUM_OUTPUT);
@@ -46,7 +75,7 @@ public class WristSubsystem extends SubsystemBase {
         rightMotor.set(-limited);
     }
 
-    public void runYawPID(double pitch) {
+    public void controlYawPID() {
         double initial = yawController.calculate(getCurrentYaw());
         double limited = Math.max(initial, -MAXIUM_OUTPUT);
         limited = Math.min(limited, MAXIUM_OUTPUT);
@@ -55,16 +84,12 @@ public class WristSubsystem extends SubsystemBase {
         rightMotor.set(-limited);
     }
 
-    public Command goToPitchCommand(double pitch) {
-        return run(() -> runPitchPID(pitch))
-            .until(pitchController::atSetpoint)
-            .beforeStarting(() -> pitchController.setSetpoint(pitch));
+    public boolean pitchAtSetpoint() {
+        return pitchController.atSetpoint();
     }
 
-    public Command goToYawCommand(double yaw) {
-        return run(() -> runYawPID(yaw))
-            .until(yawController::atSetpoint)
-            .beforeStarting(() -> yawController.setSetpoint(yaw));
+    public boolean yawAtSetpoint() {
+        return yawController.atSetpoint();
     }
     
     private double getCurrentYaw() {

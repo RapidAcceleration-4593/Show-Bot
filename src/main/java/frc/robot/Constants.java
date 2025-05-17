@@ -5,9 +5,7 @@
 package frc.robot;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.Encoder;
-
 import com.revrobotics.spark.SparkMax;
 
 /**
@@ -30,5 +28,15 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public static final SparkMax intakeMotor = new SparkMax(2, MotorType.kBrushless);
+  }
+
+  public static final class RobotStates {
+    public enum WristPitchStates {
+      UP, OUT
+    }
+
+    public enum WristYawStates {
+      LEFT, CENTER, RIGHT
+    }
   }
 }
