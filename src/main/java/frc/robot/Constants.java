@@ -54,5 +54,6 @@ public final class Constants
     public static final int SHOOT_SPINNER_A_ID = 0;
     public static final int SHOOT_SPINNER_B_ID = 1;
     public static final int SHOOT_FEEDER_ID = 2;
+    public static final double SHOOT_RPM = 3000;
   }
 }
