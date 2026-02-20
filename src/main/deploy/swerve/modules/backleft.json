@@ -3,7 +3,7 @@
     "front": -10.25,
     "left": 10.25
   },
-  "absoluteEncoderOffset": 80.88,
+  "absoluteEncoderOffset": 169.41,
   "drive": {
     "type": "sparkflex_vortex",
     "id": 9,
@@ -16,7 +16,7 @@
   },
   "encoder": {
     "type": "throughbore",
-    "id": 7,
+    "id": 5,
     "canbus": null
   },
   "inverted": {
