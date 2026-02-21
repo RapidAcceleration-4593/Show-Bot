@@ -19,7 +19,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public ShooterSubsystem(){
         spinnerA = new SparkMax(Constants.ShooterConstants.SHOOT_SPINNER_A_ID, MotorType.kBrushless);
         spinnerB = new SparkMax(Constants.ShooterConstants.SHOOT_SPINNER_B_ID, MotorType.kBrushless);
-        feeder = new SparkMax(Constants.ShooterConstants.SHOOT_FEEDER_ID, MotorType.kBrushless);
+        feeder = new SparkMax(Constants.ShooterConstants.SHOOT_FEEDER_ID, MotorType.kBrushed);
         SparkMaxConfig bConfig = new SparkMaxConfig();
         bConfig.follow(spinnerA, true);
         spinnerB.configure(bConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
@@ -29,6 +29,6 @@ public class ShooterSubsystem extends SubsystemBase {
     public Runnable startFeeder = () -> feeder.setVoltage(3.0);
     public Runnable stopSpinner = () -> spinnerA.stopMotor();
     public Runnable stopFeeder = () -> feeder.stopMotor();
-    public Supplier<Boolean> atSpeed = () -> spinnerA.getEncoder().getVelocity() >= Constants.ShooterConstants.SHOOT_RPM;
+    public Supplier<Boolean> atSpeed = () -> false;
 
 }

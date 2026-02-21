@@ -12,18 +12,23 @@ public class ShootCommand extends Command {
 
     @Override
     public void initialize(){
+        System.out.println("Start");
         subsystem.startSpinner.run();
     }
 
     @Override
     public void execute(){
         if(subsystem.atSpeed.get()){
+            System.out.println("At Speed");
             subsystem.startFeeder.run();
+        } else {
+            System.out.println("Spinning up");
         }
     }
 
     @Override
     public void end(boolean interrupted){
+        System.out.println("Stopped");
         subsystem.stopFeeder.run();
         subsystem.stopSpinner.run();
     }
