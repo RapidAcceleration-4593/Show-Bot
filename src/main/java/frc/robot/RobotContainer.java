@@ -20,74 +20,54 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.shooter.ShootCommand;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.subsystems.sicckleds.LEDSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
- * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
- * Instead, the structure of the robot (including subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
 
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 	final         CommandXboxController driverXbox = new CommandXboxController(0);
 	// The robot's subsystems and commands are defined here...
-	private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+	// private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
 	private final ShooterSubsystem shooter = new ShooterSubsystem();
-	/**
-	 * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
-	 */
-	SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-																	() -> driverXbox.getLeftY(),
-																	() -> driverXbox.getLeftX() * -1)
-																.withControllerRotationAxis(() -> driverXbox.getRightX() * -1)
-																.deadband(OperatorConstants.DEADBAND)
-																.scaleTranslation(0.8)
-																.allianceRelativeControl(true);
+	private final LEDSubsystem leds = new LEDSubsystem();
+	// SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
+	// 																() -> driverXbox.getLeftY(),
+	// 																() -> driverXbox.getLeftX() * -1)
+	// 															.withControllerRotationAxis(() -> driverXbox.getRightX() * -1)
+	// 															.deadband(OperatorConstants.DEADBAND)
+	// 															.scaleTranslation(0.8)
+	// 															.allianceRelativeControl(true);
 
-	/**
-	 * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
-	 */
-	SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
-																.allianceRelativeControl(false);
+	// SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
+																// .allianceRelativeControl(false);
 
-	Command driveFieldOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
-	Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
+	// Command driveFieldOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
+	// Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
 
-	/**
-	 * The container for the robot. Contains subsystems, OI devices, and commands.
-	 */
 	public RobotContainer() {
 		// Configure the trigger bindings
 		configureBindings();
 		DriverStation.silenceJoystickConnectionWarning(true);
 	}
 
-	/**
-	 * Use this method to define your trigger->command mappings. Triggers can be created via the
-	 * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary predicate, or via the
-    	 * {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4}
-	 * controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
-	 */
 	private void configureBindings() {
-		drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
+		// drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
 
-		driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-		driverXbox.rightTrigger().onTrue((new ShootCommand(shooter)));
+		// driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+		driverXbox.rightTrigger().onTrue(new ShootCommand(shooter));
+
+		driverXbox.b().onTrue(leds.nextPatternCommand());
 	}
 
-	/**
-	 * Use this to pass the autonomous command to the main {@link Robot} class.
-	 * @return the command to run in autonomous
-	 */
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
 		return Commands.none();
 	}
 
 	public void setMotorBrake(boolean brake) {
-		drivebase.setMotorBrake(brake);
+		// drivebase.setMotorBrake(brake);
 	}
 }
