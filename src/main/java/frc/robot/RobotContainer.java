@@ -27,7 +27,7 @@ public class RobotContainer {
 	private final LEDSubsystem leds = new LEDSubsystem();
 	SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
 																	() -> driverXbox.getLeftY(),
-																	() -> driverXbox.getLeftX() * -1)
+																	() -> driverXbox.getLeftX())
 																.withControllerRotationAxis(() -> driverXbox.getRightX() * -1)
 																.deadband(OperatorConstants.DEADBAND)
 																.scaleTranslation(0.8)
