@@ -49,7 +49,7 @@ public class RobotContainer {
 		drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
 
 		driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-		driverXbox.rightTrigger().onTrue(new ShootCommand(shooter));
+		driverXbox.rightTrigger().whileTrue(new ShootCommand(shooter));
 
 		driverXbox.b().onTrue(leds.nextPatternCommand());
 	}

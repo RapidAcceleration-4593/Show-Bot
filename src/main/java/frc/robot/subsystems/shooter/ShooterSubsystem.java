@@ -28,16 +28,15 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void runShooter() {
-        spinnerA.set(1.0);;
+        spinnerA.set(-1.0);
     }
 
     public void runFeeder() {
-        feeder.setVoltage(3.0);
+        feeder.setVoltage(-3.0);
     }
 
     public void stopShooter() {
         spinnerA.stopMotor();
-        spinnerB.stopMotor();
     }
 
     public void stopFeeder() {
@@ -45,6 +44,6 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public boolean atSpeed() {
-        return spinnerA.getEncoder().getVelocity() > Constants.ShooterConstants.SHOOT_RPM;
+        return Math.abs(spinnerA.getEncoder().getVelocity()) > Constants.ShooterConstants.SHOOT_RPM;
     }
 }
