@@ -37,6 +37,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void stopShooter() {
         spinnerA.stopMotor();
+        spinnerB.stopMotor();
     }
 
     public void stopFeeder() {
