@@ -16,7 +16,7 @@ public class ShooterSubsystem extends SubsystemBase {
     
     SparkMax spinnerA, spinnerB, feeder;
     
-    public ShooterSubsystem(){
+    public ShooterSubsystem() {
         spinnerA = new SparkMax(Constants.ShooterConstants.SHOOT_SPINNER_A_ID, MotorType.kBrushless);
         spinnerB = new SparkMax(Constants.ShooterConstants.SHOOT_SPINNER_B_ID, MotorType.kBrushless);
         feeder = new SparkMax(Constants.ShooterConstants.SHOOT_FEEDER_ID, MotorType.kBrushed);

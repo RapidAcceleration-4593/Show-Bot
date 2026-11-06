@@ -6,11 +6,15 @@ package frc.robot.subsystems.swervedrive;
 
 import static edu.wpi.first.units.Units.Meter;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -18,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants;
+import frc.robot.subsystems.vision.VisionConsumer;
+
 import java.io.File;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -30,14 +36,14 @@ import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
-public class SwerveSubsystem extends SubsystemBase
+public class SwerveSubsystem extends SubsystemBase implements VisionConsumer
 {
 
   /**
    * Swerve drive object.
    */
   private final SwerveDrive swerveDrive;
-  
+
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
    *
@@ -294,5 +300,10 @@ public class SwerveSubsystem extends SubsystemBase
   public SwerveDrive getSwerveDrive()
   {
     return swerveDrive;
+  }
+
+  public void accept(Pose2d pose, double timestamp, Matrix<N3, N1> stdDevs) {
+    swerveDrive.addVisionMeasurement(pose, timestamp);
+    // swerveDrive.setVisionMeasurementStdDevs(stdDevs);
   }
 }

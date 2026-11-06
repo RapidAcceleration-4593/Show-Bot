@@ -55,4 +55,9 @@ public final class Constants
     public static final int SHOOT_FEEDER_ID = 1;
     public static final double SHOOT_RPM = 500;
   }
+  public static class VisionConstants
+  {
+    public static final String CAMERA_NAME = "burger";
+    public static final int APRILTAG_ID = 1;
+  }
 }
